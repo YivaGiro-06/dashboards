@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inspección Ergonómica de Vehículos · CD Itagüí · Dashboard de Auditoría</title>
+<title>Inspección Puesto de Trabajo · CD Itagüí · Dashboard de Auditoría</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -298,6 +298,8 @@ button.kpi{
   background:var(--panel);border:none;border-left:4px solid var(--orange);
 }
 
+#hallazgos-summary .kpi::after{display:none}
+#hallazgos-summary .kpi:hover{transform:none}
 </style>
 </head>
 <body>
@@ -305,18 +307,18 @@ button.kpi{
 <header class="header">
   <div class="header-left">
     <div class="header-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
     </div>
     <div>
-      <h1>Inspección Ergonómica de Vehículos · Dashboard de Auditoría</h1>
+      <h1>Inspección Puesto de Trabajo · Dashboard de Auditoría</h1>
       <div class="sub">
-        <span>Pilar SST · Abril 2026</span>
+        <span>Pilar SST · Marzo–Abril 2026</span>
         <span>·</span>
-        <b id="meta-total">96 inspecciones</b>
+        <b id="meta-total">17 colaboradores</b>
         <span>·</span>
-        <b id="meta-tip">8 tipologías</b>
+        <b id="meta-cargos">14 cargos</b>
         <span>·</span>
-        <b id="meta-items">46 ítems evaluados</b>
+        <b>14 ítems evaluados</b>
       </div>
     </div>
   </div>
@@ -327,12 +329,12 @@ button.kpi{
       <select disabled><option>CD Itagüí</option></select>
     </div>
     <div class="filter">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      <span>Tipología:</span>
-      <select id="filter-tipologia"><option value="">Todas</option></select>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Cargo:</span>
+      <select id="filter-cargo"><option value="">Todos</option></select>
     </div>
-    <div class="badge-pill" id="kpi-badge">94.6% Cumplimiento</div>
-    <div class="badge-corner">GIR · Itagüí 2026</div>
+    <div class="badge-pill" id="kpi-badge">39.9% Cumplimiento</div>
+    <div class="badge-corner">SST · Itagüí 2026</div>
   </div>
 </header>
 
@@ -341,29 +343,40 @@ button.kpi{
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
     Vista General
   </button>
-  <button class="tab" data-tab="categorias">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="13" y2="18"/></svg>
-    Por Categoría
+  <button class="tab" data-tab="condiciones">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    Condiciones
   </button>
-  <button class="tab" data-tab="tipologia">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
-    Por Tipología
+  <button class="tab" data-tab="necesidades">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Necesidades
   </button>
   <button class="tab" data-tab="hallazgos">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
     Hallazgos
   </button>
-  <button class="tab" data-tab="inspectores">
+  <button class="tab" data-tab="cargos">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    Inspectores
+    Por Cargo
   </button>
-  <button class="tab" data-tab="detalle">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    Detalle Vehículos
+  <button class="tab" data-tab="colaboradores">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Detalle por Colaborador
   </button>
 </nav>
 
 <main class="main">
+
+  <!-- Alert -->
+  <section class="alert" id="critical-alert">
+    <div class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <div style="flex:1">
+      <h3>Hallazgos críticos detectados</h3>
+      <p id="alert-text"><b>17 de 17 colaboradores no realizan pausas activas</b> · <b>14 portátiles sin teclado externo</b> y <b>14 puestos con iluminación o ventilación deficiente</b> · <b>16 de 17 colaboradores requieren al menos una acción correctiva</b></p>
+    </div>
+  </section>
 
   <!-- KPI Row -->
   <section class="kpi-row" id="kpi-row"></section>
@@ -374,52 +387,51 @@ button.kpi{
       <div class="panel">
         <div class="panel-head">
           <div>
-            <div class="panel-title">% Cumplimiento por categoría ergonómica</div>
-            <div class="panel-desc">9 categorías · evaluable = CUMPLE / (CUMPLE + NO CUMPLE)</div>
+            <div class="panel-title">% Cumplimiento por condición ergonómica</div>
+            <div class="panel-desc">9 condiciones evaluadas · ordenado de menor a mayor</div>
           </div>
         </div>
-        <div class="chart-wrap"><canvas id="chartCatBar"></canvas></div>
+        <div class="chart-wrap tall"><canvas id="chartCond"></canvas></div>
       </div>
-      <div class="panel">
-        <div class="panel-head">
-          <div>
-            <div class="panel-title">Distribución de resultados</div>
-            <div class="panel-desc">4.416 evaluaciones totales</div>
-          </div>
+      <div>
+        <div class="panel">
+          <div class="panel-head"><div><div class="panel-title">Tipo de silla</div><div class="panel-desc">Distribución de mobiliario</div></div></div>
+          <div class="chart-wrap short"><canvas id="chartSilla"></canvas></div>
         </div>
-        <div class="chart-wrap"><canvas id="chartDonut"></canvas></div>
+        <div class="panel" style="margin-top:18px">
+          <div class="panel-head"><div><div class="panel-title">Tiempo de exposición</div><div class="panel-desc">Frente al computador</div></div></div>
+          <div class="chart-wrap short"><canvas id="chartExp"></canvas></div>
+        </div>
       </div>
     </div>
 
     <div class="panel" style="margin-top:18px">
       <div class="panel-head">
         <div>
-          <div class="panel-title">Top hallazgos · ítems con más incumplimientos</div>
-          <div class="panel-desc">Los 10 ítems donde la flota presenta mayor incumplimiento</div>
+          <div class="panel-title">Necesidades requeridas · acciones correctivas pendientes</div>
+          <div class="panel-desc">Número de colaboradores que requieren cada acción</div>
         </div>
       </div>
-      <div class="chart-wrap tall"><canvas id="chartTop10"></canvas></div>
+      <div class="chart-wrap"><canvas id="chartNeed"></canvas></div>
     </div>
   </section>
 
-  <!-- ============ TAB: CATEGORIAS ============ -->
-  <section class="tab-content" data-tab="categorias">
+  <!-- ============ TAB: CONDICIONES ============ -->
+  <section class="tab-content" data-tab="condiciones">
     <div class="panel">
       <div class="panel-head">
         <div>
-          <div class="panel-title">Cumplimiento detallado por categoría</div>
-          <div class="panel-desc">Ordenado de menor a mayor cumplimiento</div>
+          <div class="panel-title">Condiciones ergonómicas evaluadas</div>
+          <div class="panel-desc">Si = cumple · No = incumplimiento</div>
         </div>
       </div>
-      <table class="tbl" id="tblCategorias">
+      <table class="tbl" id="tblCond">
         <thead>
           <tr>
             <th>#</th>
-            <th>Categoría</th>
-            <th>Ítems</th>
-            <th class="num">CUMPLE</th>
-            <th class="num">NO CUMPLE</th>
-            <th class="num">Total evaluable</th>
+            <th>Condición</th>
+            <th class="num">SÍ (cumple)</th>
+            <th class="num">NO (incumple)</th>
             <th>Cumplimiento</th>
           </tr>
         </thead>
@@ -428,32 +440,33 @@ button.kpi{
     </div>
   </section>
 
-  <!-- ============ TAB: TIPOLOGIA ============ -->
-  <section class="tab-content" data-tab="tipologia">
+  <!-- ============ TAB: NECESIDADES ============ -->
+  <section class="tab-content" data-tab="necesidades">
     <div class="grid-2">
       <div class="panel">
         <div class="panel-head">
           <div>
-            <div class="panel-title">Cumplimiento por tipología de vehículo</div>
-            <div class="panel-desc">Tasa de cumplimiento ponderada</div>
+            <div class="panel-title">Acciones requeridas</div>
+            <div class="panel-desc">Cantidad de colaboradores que requieren cada acción</div>
           </div>
         </div>
-        <div class="chart-wrap"><canvas id="chartTipBar"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartNeed2"></canvas></div>
       </div>
       <div class="panel">
         <div class="panel-head">
           <div>
-            <div class="panel-title">Distribución de flota</div>
-            <div class="panel-desc">Inspecciones por tipología</div>
+            <div class="panel-title">Distribución por estatura</div>
+            <div class="panel-desc">Relevante para apoya-pies y base elevadora</div>
           </div>
         </div>
-        <div class="chart-wrap"><canvas id="chartTipDonut"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartEst"></canvas></div>
       </div>
     </div>
+
     <div class="panel" style="margin-top:18px">
-      <div class="panel-head"><div><div class="panel-title">Tabla por tipología</div></div></div>
-      <table class="tbl" id="tblTip">
-        <thead><tr><th>Tipología</th><th class="num">Vehículos</th><th class="num">CUMPLE</th><th class="num">NO CUMPLE</th><th>Cumplimiento</th></tr></thead>
+      <div class="panel-head"><div><div class="panel-title">Tabla detallada de necesidades</div></div></div>
+      <table class="tbl" id="tblNeed">
+        <thead><tr><th>Acción / Recurso</th><th class="num">Requieren</th><th class="num">No requieren</th><th>% Requiere</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -464,31 +477,44 @@ button.kpi{
     <div class="panel">
       <div class="panel-head">
         <div>
-          <div class="panel-title">Detalle de hallazgos (NO CUMPLE)</div>
-          <div class="panel-desc">Lista completa de no conformidades para acción correctiva</div>
+          <div class="panel-title">Detalle de hallazgos · no conformidades por colaborador</div>
+          <div class="panel-desc">Lista plana de todas las no conformidades detectadas y acciones correctivas requeridas</div>
         </div>
-        <span class="tag tag-red mono" id="hallazgos-count">239 hallazgos</span>
+        <span class="tag tag-red mono" id="hallazgos-count">0 hallazgos</span>
       </div>
+
+      <!-- Mini summary cards -->
+      <div class="grid-3" id="hallazgos-summary" style="margin-bottom:16px"></div>
+
       <div class="search-bar">
-        <input type="text" id="search-hallazgos" placeholder="🔍 Buscar por placa, categoría, ítem o inspector…">
-        <select id="filter-categoria">
+        <input type="text" id="search-hallazgos" placeholder="🔍 Buscar nombre, cargo, hallazgo…">
+        <select id="filter-hcategoria">
           <option value="">Todas las categorías</option>
+          <option value="Mobiliario">Mobiliario</option>
+          <option value="Equipo de cómputo">Equipo de cómputo</option>
+          <option value="Ambiente">Ambiente</option>
+          <option value="Hábitos">Hábitos</option>
         </select>
-        <select id="filter-tip-h">
-          <option value="">Todas las tipologías</option>
+        <select id="filter-htipo">
+          <option value="">Todos los tipos</option>
+          <option value="No conformidad">No conformidad</option>
+          <option value="Acción requerida">Acción requerida</option>
+        </select>
+        <select id="filter-hcargo">
+          <option value="">Todos los cargos</option>
         </select>
         <span class="count" id="hallazgos-shown"></span>
       </div>
+
       <div class="scroll-area">
         <table class="tbl" id="tblHallazgos">
           <thead>
             <tr>
-              <th>Fecha</th>
-              <th>Placa</th>
-              <th>Tipología</th>
+              <th>Colaborador</th>
+              <th>Cargo</th>
               <th>Categoría</th>
-              <th>Ítem incumplido</th>
-              <th>Inspector</th>
+              <th>Tipo</th>
+              <th>Hallazgo / Acción</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -497,59 +523,49 @@ button.kpi{
     </div>
   </section>
 
-  <!-- ============ TAB: INSPECTORES ============ -->
-  <section class="tab-content" data-tab="inspectores">
-    <div class="grid-2">
-      <div class="panel">
-        <div class="panel-head">
-          <div>
-            <div class="panel-title">Inspecciones por responsable</div>
-            <div class="panel-desc">Volumen de inspecciones realizadas</div>
-          </div>
+  <!-- ============ TAB: CARGOS ============ -->
+  <section class="tab-content" data-tab="cargos">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Cumplimiento por cargo</div>
+          <div class="panel-desc">% de cumplimiento promedio en las 9 condiciones</div>
         </div>
-        <div class="chart-wrap"><canvas id="chartInsp"></canvas></div>
       </div>
-      <div class="panel">
-        <div class="panel-head">
-          <div>
-            <div class="panel-title">Cumplimiento detectado por responsable</div>
-            <div class="panel-desc">% promedio CUMPLE en sus inspecciones</div>
-          </div>
-        </div>
-        <div class="chart-wrap"><canvas id="chartInspPct"></canvas></div>
-      </div>
+      <div class="chart-wrap tall"><canvas id="chartCargo"></canvas></div>
     </div>
     <div class="panel" style="margin-top:18px">
-      <table class="tbl" id="tblInsp">
-        <thead><tr><th>Responsable</th><th class="num">Inspecciones</th><th class="num">Hallazgos detectados</th><th>Cumplimiento</th></tr></thead>
+      <table class="tbl" id="tblCargo">
+        <thead><tr><th>Cargo</th><th class="num">Colaboradores</th><th class="num">CUMPLE</th><th class="num">NO CUMPLE</th><th>Cumplimiento</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
   </section>
 
-  <!-- ============ TAB: DETALLE ============ -->
-  <section class="tab-content" data-tab="detalle">
+  <!-- ============ TAB: COLABORADORES ============ -->
+  <section class="tab-content" data-tab="colaboradores">
     <div class="panel">
       <div class="panel-head">
         <div>
-          <div class="panel-title">Detalle por vehículo</div>
-          <div class="panel-desc">Resultados consolidados de cada placa</div>
+          <div class="panel-title">Detalle por colaborador</div>
+          <div class="panel-desc">Hallazgos y acciones correctivas requeridas por persona</div>
         </div>
+        <span class="tag tag-blue mono" id="colab-count">17 colaboradores</span>
       </div>
       <div class="search-bar">
-        <input type="text" id="search-veh" placeholder="🔍 Buscar placa o tipología…">
-        <span class="count" id="veh-shown"></span>
+        <input type="text" id="search-colab" placeholder="🔍 Buscar nombre, cargo, hallazgo o acción…">
+        <span class="count" id="colab-shown"></span>
       </div>
       <div class="scroll-area">
-        <table class="tbl" id="tblVeh">
+        <table class="tbl" id="tblColab">
           <thead>
             <tr>
-              <th>Placa</th>
-              <th>Tipología</th>
-              <th>Fecha</th>
-              <th>Inspector</th>
-              <th class="num">Hallazgos</th>
-              <th>Estado</th>
+              <th>Colaborador</th>
+              <th>Cargo</th>
+              <th>Estatura</th>
+              <th>Silla</th>
+              <th>Hallazgos detectados</th>
+              <th>Acciones requeridas</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -561,14 +577,13 @@ button.kpi{
 </main>
 
 <footer class="footer">
-  Auditoría SST · Inspección Ergonómica de Vehículos · CD Itagüí · Generado <span id="gen-date"></span>
+  Auditoría SST · Inspección Puesto de Trabajo · CD Itagüí · Generado <span id="gen-date"></span>
 </footer>
 
-<script id="dataPayload" type="application/json">{"meta":{"cd":"CD Itagui","periodo":"Abril 2026","total":96,"inspectores":11,"tipologias":8,"items_evaluados":46,"categorias":9},"kpi":{"total":96,"cumplimiento":94.6,"evaluaciones":4416,"hallazgos":239,"vehiculos_con_hallazgo":46,"items_evaluados":46},"cat_cumplimiento":[{"categoria":"MANEJO DE CARGAS","cumple":452,"no_cumple":219,"total":671,"pct":67.4,"items":7},{"categoria":"ESPEJOS RETROVISORES","cumple":379,"no_cumple":5,"total":384,"pct":98.7,"items":4},{"categoria":"SILLA CONDUCTOR","cumple":475,"no_cumple":5,"total":480,"pct":99.0,"items":5},{"categoria":"ACCESO A CABINA","cumple":571,"no_cumple":5,"total":576,"pct":99.1,"items":6},{"categoria":"ACCESO CABINA TRIPULACION","cumple":286,"no_cumple":2,"total":288,"pct":99.3,"items":3},{"categoria":"CINTURONES","cumple":669,"no_cumple":3,"total":672,"pct":99.6,"items":7},{"categoria":"SILLA DE TRIPULACIÓN","cumple":192,"no_cumple":0,"total":192,"pct":100.0,"items":2},{"categoria":"CARROCERIA","cumple":768,"no_cumple":0,"total":768,"pct":100.0,"items":8},{"categoria":"ASCENSO Y DESCENSO","cumple":384,"no_cumple":0,"total":384,"pct":100.0,"items":4}],"tipologia":[{"tipologia":"MERCEDES","vehiculos":38,"cumple":1566,"no_cumple":182,"pct":89.6},{"tipologia":"STARK","vehiculos":32,"cumple":1426,"no_cumple":45,"pct":96.9},{"tipologia":"INTERNATIONAL","vehiculos":11,"cumple":506,"no_cumple":0,"pct":100.0},{"tipologia":"DAF","vehiculos":5,"cumple":228,"no_cumple":2,"pct":99.1},{"tipologia":"SITOM","vehiculos":4,"cumple":182,"no_cumple":2,"pct":98.9},{"tipologia":"FVR","vehiculos":4,"cumple":184,"no_cumple":0,"pct":100.0},{"tipologia":"ISUZU","vehiculos":1,"cumple":43,"no_cumple":3,"pct":93.5},{"tipologia":"NQR-NPR","vehiculos":1,"cumple":41,"no_cumple":5,"pct":89.1}],"top_hallazgos":[{"categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","no_cumple":40,"cumple":56,"pct":41.7},{"categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","no_cumple":39,"cumple":57,"pct":40.6},{"categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","no_cumple":32,"cumple":64,"pct":33.3},{"categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","no_cumple":29,"cumple":66,"pct":30.5},{"categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","no_cumple":29,"cumple":67,"pct":30.2},{"categoria":"MANEJO DE CARGAS","item":"Pausas activas","no_cumple":25,"cumple":71,"pct":26.0},{"categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","no_cumple":25,"cumple":71,"pct":26.0},{"categoria":"ACCESO A CABINA","item":"Tres puntos de apoyo (no sueltos)","no_cumple":3,"cumple":93,"pct":3.1},{"categoria":"SILLA CONDUCTOR","item":"Apoya cabeza","no_cumple":3,"cumple":93,"pct":3.1},{"categoria":"CINTURONES","item":"Cinturón conductor tiene 3 puntos","no_cumple":3,"cumple":93,"pct":3.1},{"categoria":"ACCESO A CABINA","item":"Palanca de cambios con POMA","no_cumple":2,"cumple":94,"pct":2.1},{"categoria":"ACCESO CABINA TRIPULACION","item":"Estribos (no partidos, no sueltos)","no_cumple":2,"cumple":94,"pct":2.1},{"categoria":"ESPEJOS RETROVISORES","item":"Retrovisor auxiliar (luna) derecho en buen estado","no_cumple":2,"cumple":94,"pct":2.1},{"categoria":"ESPEJOS RETROVISORES","item":"Retrovisor auxiliar (luna) izquierdo en buen estado","no_cumple":2,"cumple":94,"pct":2.1},{"categoria":"SILLA CONDUCTOR","item":"Tapicería en correcto estado","no_cumple":1,"cumple":95,"pct":1.0},{"categoria":"SILLA CONDUCTOR","item":"Pedales completos no partidos o sin apoyo","no_cumple":1,"cumple":95,"pct":1.0},{"categoria":"ESPEJOS RETROVISORES","item":"Retrovisor Principal derecho en buen estado","no_cumple":1,"cumple":95,"pct":1.0}],"distribucion":{"cumple":4176,"no_cumple":239,"no_aplica":1},"inspectores":[{"nombre":"LINA SANCHEZ","inspecciones":38,"hallazgos":0,"pct":100.0},{"nombre":"Gerson","inspecciones":18,"hallazgos":131,"pct":84.2},{"nombre":"Roberto Muñoz","inspecciones":12,"hallazgos":10,"pct":98.2},{"nombre":"sebastian roman","inspecciones":9,"hallazgos":28,"pct":93.2},{"nombre":"Gerson","inspecciones":5,"hallazgos":35,"pct":84.8},{"nombre":"sebastian roman","inspecciones":5,"hallazgos":15,"pct":93.5},{"nombre":"Sebastián Román","inspecciones":3,"hallazgos":2,"pct":98.5},{"nombre":"LINA SANCHEZ GIL","inspecciones":2,"hallazgos":0,"pct":100.0},{"nombre":"Roberto Muñoz ARROYAVE","inspecciones":1,"hallazgos":0,"pct":100.0},{"nombre":"Gerson reina","inspecciones":1,"hallazgos":7,"pct":84.8},{"nombre":"SEBASTIAN ROMAN","inspecciones":1,"hallazgos":4,"pct":91.3}],"hallazgos_detalle":[{"placa":"GUR490","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Sebastián Román","fecha":"2026-04-28"},{"placa":"GUR494","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Sebastián Román","fecha":"2026-04-28"},{"placa":"JTZ264","tipologia":"SITOM","categoria":"ESPEJOS RETROVISORES","item":"Retrovisor auxiliar (luna) izquierdo en buen estado","inspector":"Roberto Muñoz","fecha":"2026-04-22"},{"placa":"JTZ264","tipologia":"SITOM","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Roberto Muñoz","fecha":"2026-04-22"},{"placa":"KVW109","tipologia":"STARK","categoria":"SILLA CONDUCTOR","item":"Pedales completos no partidos o sin apoyo","inspector":"Roberto Muñoz","fecha":"2026-04-21"},{"placa":"KVW116","tipologia":"STARK","categoria":"ACCESO A CABINA","item":"Tres puntos de apoyo (no sueltos)","inspector":"Roberto Muñoz","fecha":"2026-04-21"},{"placa":"KVW116","tipologia":"STARK","categoria":"ACCESO CABINA TRIPULACION","item":"Estribos (no partidos, no sueltos)","inspector":"Roberto Muñoz","fecha":"2026-04-21"},{"placa":"KVW116","tipologia":"STARK","categoria":"SILLA CONDUCTOR","item":"Apoya cabeza","inspector":"Roberto Muñoz","fecha":"2026-04-21"},{"placa":"KVW123","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"SEBASTIAN ROMAN","fecha":"2026-04-29"},{"placa":"KVW123","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"SEBASTIAN ROMAN","fecha":"2026-04-29"},{"placa":"KVW123","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"SEBASTIAN ROMAN","fecha":"2026-04-29"},{"placa":"KVW123","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"SEBASTIAN ROMAN","fecha":"2026-04-29"},{"placa":"KVW127","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW127","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW127","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW127","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW131","tipologia":"STARK","categoria":"CINTURONES","item":"Cinturón conductor tiene 3 puntos","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW131","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW131","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW131","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW131","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW131","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW141","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW141","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW141","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW141","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW145","tipologia":"STARK","categoria":"ACCESO CABINA TRIPULACION","item":"Estribos (no partidos, no sueltos)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW145","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW145","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"KVW145","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LCL722","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LCL722","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU365","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU365","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU365","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU369","tipologia":"STARK","categoria":"CINTURONES","item":"Cinturón conductor tiene 3 puntos","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU369","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU369","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU374","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU374","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU380","tipologia":"STARK","categoria":"SILLA CONDUCTOR","item":"Apoya cabeza","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU380","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU380","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-29"},{"placa":"LGU472","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"LGU472","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"LGU489","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"LGU489","tipologia":"STARK","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"PRY839","tipologia":"ISUZU","categoria":"ACCESO A CABINA","item":"Palanca de cambios con POMA","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"PRY839","tipologia":"ISUZU","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"PRY839","tipologia":"ISUZU","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"QJX761","tipologia":"DAF","categoria":"ESPEJOS RETROVISORES","item":"Retrovisor auxiliar (luna) izquierdo en buen estado","inspector":"Roberto Muñoz","fecha":"2026-04-22"},{"placa":"QJX761","tipologia":"DAF","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Roberto Muñoz","fecha":"2026-04-22"},{"placa":"TMV720","tipologia":"MERCEDES","categoria":"CINTURONES","item":"Cinturón conductor tiene 3 puntos","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV720","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV720","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV720","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV720","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV720","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV720","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV720","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV721","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV721","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV721","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV721","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV721","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV721","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV721","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV722","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV722","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV722","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV722","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV722","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV722","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV722","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV726","tipologia":"MERCEDES","categoria":"ACCESO A CABINA","item":"Palanca de cambios con POMA","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV726","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV726","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV726","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV726","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV726","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV726","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV726","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV727","tipologia":"MERCEDES","categoria":"ACCESO A CABINA","item":"Tres puntos de apoyo (no sueltos)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV727","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV727","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV727","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV727","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV727","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV727","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV727","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV731","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV731","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV731","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV731","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV731","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV731","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV731","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV732","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV732","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV732","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV732","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV732","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV732","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV732","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV888","tipologia":"MERCEDES","categoria":"SILLA CONDUCTOR","item":"Apoya cabeza","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV888","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV888","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV888","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV888","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV888","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV888","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMV888","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-29"},{"placa":"TMW122","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW122","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW122","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW122","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW122","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW122","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW122","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW766","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW766","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW766","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW766","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW766","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW766","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMW766","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX165","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX165","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX165","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX165","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX165","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX165","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX165","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX166","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX166","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX166","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX166","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX166","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX166","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX166","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX167","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX167","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX167","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX167","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX167","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX167","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX167","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX333","tipologia":"MERCEDES","categoria":"ACCESO A CABINA","item":"Tres puntos de apoyo (no sueltos)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX333","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX333","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX333","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX333","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX333","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX333","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX333","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX335","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX335","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX335","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX335","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX335","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX335","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX335","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX337","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX337","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX337","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX337","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX337","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX337","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX337","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX663","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"N/D","fecha":"2026-04-28"},{"placa":"TMX663","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"N/D","fecha":"2026-04-28"},{"placa":"TMX663","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"N/D","fecha":"2026-04-28"},{"placa":"TMX663","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"N/D","fecha":"2026-04-28"},{"placa":"TMX663","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"N/D","fecha":"2026-04-28"},{"placa":"TMX663","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"N/D","fecha":"2026-04-28"},{"placa":"TMX663","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"N/D","fecha":"2026-04-28"},{"placa":"TMX797","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX797","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX797","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX797","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX797","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX797","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TMX797","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"TRG456","tipologia":"NQR-NPR","categoria":"ESPEJOS RETROVISORES","item":"Retrovisor Principal derecho en buen estado","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"TRG456","tipologia":"NQR-NPR","categoria":"ESPEJOS RETROVISORES","item":"Retrovisor auxiliar (luna) derecho en buen estado","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"TRG456","tipologia":"NQR-NPR","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"TRG456","tipologia":"NQR-NPR","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"TRG456","tipologia":"NQR-NPR","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"sebastian roman","fecha":"2026-04-30"},{"placa":"VCL954","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCL954","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCL954","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCL954","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCL954","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCL954","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCL954","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCN586","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCN586","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCN586","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCN586","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCN586","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCN586","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VCN586","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEJ945","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEJ945","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEJ945","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEJ945","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEJ945","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEJ945","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEJ945","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEK256","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEK256","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEK256","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEK256","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEK256","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEK256","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEK256","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEL182","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEL182","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEL182","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEL182","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEL182","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEL182","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEL182","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEL183","tipologia":"MERCEDES","categoria":"SILLA CONDUCTOR","item":"Tapicería en correcto estado","inspector":"Roberto Muñoz","fecha":"2026-04-18"},{"placa":"VEL183","tipologia":"MERCEDES","categoria":"ESPEJOS RETROVISORES","item":"Retrovisor auxiliar (luna) derecho en buen estado","inspector":"Roberto Muñoz","fecha":"2026-04-18"},{"placa":"VEN939","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEN939","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEN939","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEN939","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEN939","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEN939","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEN939","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson","fecha":"2026-04-28"},{"placa":"VEP917","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Carretillas (2)","inspector":"Gerson reina","fecha":"2026-04-28"},{"placa":"VEP917","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Uso correcto de carretilla","inspector":"Gerson reina","fecha":"2026-04-28"},{"placa":"VEP917","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Manejo manual de Cargas: Levantan carga permitida (2 producto 330cc - 1 producto 750 o 1000 cc)","inspector":"Gerson reina","fecha":"2026-04-28"},{"placa":"VEP917","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Pausas activas","inspector":"Gerson reina","fecha":"2026-04-28"},{"placa":"VEP917","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Evita posturas como hiperextension para alcanzar canastas","inspector":"Gerson reina","fecha":"2026-04-28"},{"placa":"VEP917","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 1","inspector":"Gerson reina","fecha":"2026-04-28"},{"placa":"VEP917","tipologia":"MERCEDES","categoria":"MANEJO DE CARGAS","item":"Estado general de carretilla 2","inspector":"Gerson reina","fecha":"2026-04-28"}],"fechas":[{"fecha":"2026-04-17","count":1},{"fecha":"2026-04-18","count":3},{"fecha":"2026-04-20","count":1},{"fecha":"2026-04-21","count":4},{"fecha":"2026-04-22","count":4},{"fecha":"2026-04-28","count":20},{"fecha":"2026-04-29","count":19},{"fecha":"2026-04-30","count":4},{"fecha":"2026-05-01","count":40}]}</script>
+<script id="dataPayload" type="application/json">{"meta":{"cd":"CD Itagui","periodo":"Marzo–Abril 2026","total":17,"cargos":14},"kpi":{"total":17,"cumplimiento":39.9,"colab_con_acciones":16,"total_acciones":40,"pct_pausas":0.0,"sillas_ergonomicas":14,"sillas_fijas":3},"condiciones":[{"item":"Realiza pausas activas","item_negativo":"No realiza pausas activas","key":"pausas","si":0,"no":17,"pct_cumple":0.0},{"item":"Portátil con teclado externo","item_negativo":"Portátil sin teclado externo","key":"teclado_ext","si":3,"no":14,"pct_cumple":17.6},{"item":"Buena iluminación y ventilación","item_negativo":"Iluminación y/o ventilación deficiente","key":"iluminacion","si":3,"no":14,"pct_cumple":17.6},{"item":"Cuenta con teclado","item_negativo":"No cuenta con teclado","key":"teclado","si":4,"no":13,"pct_cumple":23.5},{"item":"Cuenta con base elevadora","item_negativo":"No cuenta con base elevadora","key":"base_elev","si":5,"no":12,"pct_cumple":29.4},{"item":"Cuenta con mouse","item_negativo":"No cuenta con mouse","key":"mouse","si":6,"no":11,"pct_cumple":35.3},{"item":"Silla ergonómica en buen estado","item_negativo":"Silla ergonómica en mal estado","key":"silla_ok","si":7,"no":10,"pct_cumple":41.2},{"item":"Cables canalizados","item_negativo":"Cables no canalizados","key":"cables","si":16,"no":1,"pct_cumple":94.1},{"item":"Buen orden y aseo","item_negativo":"Deficiencia en orden y aseo","key":"orden_aseo","si":17,"no":0,"pct_cumple":100.0}],"necesidades":[{"item":"Mantenimiento correctivo silla","key":"req_mant_silla","requiere":10,"no_requiere":7,"pct_requiere":58.8},{"item":"Teclado","key":"req_teclado","requiere":10,"no_requiere":7,"pct_requiere":58.8},{"item":"Mouse","key":"req_mouse","requiere":10,"no_requiere":7,"pct_requiere":58.8},{"item":"Apoya pies (estatura <1.60m)","key":"req_apoyapies","requiere":7,"no_requiere":10,"pct_requiere":41.2},{"item":"Cambio silla fija → ergonómica","key":"req_cambio_silla","requiere":3,"no_requiere":14,"pct_requiere":17.6}],"por_cargo":[{"cargo":"Auxiliar de gestión humana","colaboradores":3,"cumple":14,"no_cumple":13,"pct":51.9},{"cargo":"Auxiliar de SST","colaboradores":2,"cumple":5,"no_cumple":13,"pct":27.8},{"cargo":"Servicio al cliente","colaboradores":1,"cumple":3,"no_cumple":6,"pct":33.3},{"cargo":"Torre de control","colaboradores":1,"cumple":3,"no_cumple":6,"pct":33.3},{"cargo":"Líder de gestión humana","colaboradores":1,"cumple":3,"no_cumple":6,"pct":33.3},{"cargo":"Auxiliar de recursos humanos","colaboradores":1,"cumple":3,"no_cumple":6,"pct":33.3},{"cargo":"Auxiliar administrativo","colaboradores":1,"cumple":2,"no_cumple":7,"pct":22.2},{"cargo":"Auxiliar de servicio al cliente","colaboradores":1,"cumple":2,"no_cumple":7,"pct":22.2},{"cargo":"Auxiliar logístico","colaboradores":1,"cumple":2,"no_cumple":7,"pct":22.2},{"cargo":"Líder de SST","colaboradores":1,"cumple":6,"no_cumple":3,"pct":66.7},{"cargo":"Asistente administrativo","colaboradores":1,"cumple":5,"no_cumple":4,"pct":55.6},{"cargo":"Líder de flota","colaboradores":1,"cumple":3,"no_cumple":6,"pct":33.3},{"cargo":"Auxiliar SST","colaboradores":1,"cumple":6,"no_cumple":3,"pct":66.7},{"cargo":"Analista de datos","colaboradores":1,"cumple":4,"no_cumple":5,"pct":44.4}],"tipo_silla":[{"tipo":"Ergonómica","count":14},{"tipo":"Fija","count":3}],"exposicion":[{"tipo":"100% frente al computador","count":14},{"tipo":"50% oficina- 50 campo","count":3}],"estatura":[{"rango":"<1.55","count":1},{"rango":"1.55-1.59","count":5},{"rango":"1.60-1.69","count":6},{"rango":"≥1.70","count":5}],"colaboradores":[{"nombre":"Luisa Fernanda Florez Gómez","cedula":"1193117797","cargo":"Servicio al cliente","estatura":1.56,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con base elevadora","No cuenta con mouse","Silla ergonómica en mal estado","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Mantenimiento correctivo silla","Apoya pies (estatura <1.60m)"]},{"nombre":"Juan Gabriel Bustamante Gómez","cedula":"1028003264","cargo":"Torre de control","estatura":1.72,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","No cuenta con mouse","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Mantenimiento correctivo silla","Teclado","Mouse"]},{"nombre":"Dina leisy Sibaja Arias","cedula":"1028013106","cargo":"Auxiliar de gestión humana","estatura":1.58,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Mantenimiento correctivo silla","Apoya pies (estatura <1.60m)","Teclado","Mouse"]},{"nombre":"Olga Lucia Sajona Gaspar","cedula":"1028016411","cargo":"Líder de gestión humana","estatura":1.45,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con teclado","No cuenta con mouse","Silla ergonómica en mal estado","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Mantenimiento correctivo silla","Apoya pies (estatura <1.60m)","Teclado","Mouse"]},{"nombre":"Paulina Agudelo Gaspar","cedula":"1018227821","cargo":"Auxiliar de recursos humanos","estatura":1.6,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con teclado","No cuenta con mouse","Silla ergonómica en mal estado","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Apoya pies (estatura <1.60m)","Teclado","Mouse"]},{"nombre":"Laura Fernanda Roldan","cedula":"1045080048","cargo":"Auxiliar administrativo","estatura":1.57,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Fija","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","No cuenta con mouse","Silla ergonómica en mal estado","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Cambio silla fija → ergonómica","Apoya pies (estatura <1.60m)","Teclado","Mouse"]},{"nombre":"Shirley Llorente Sánchez","cedula":"1027964080","cargo":"Auxiliar de servicio al cliente","estatura":1.59,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","No cuenta con mouse","Silla ergonómica en mal estado","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Mantenimiento correctivo silla","Apoya pies (estatura <1.60m)","Mouse"]},{"nombre":"Yasury Andrea Vergara Muñoz","cedula":"1035970384","cargo":"Auxiliar logístico","estatura":1.67,"exposicion":"50% oficina- 50 campo","equipo":"Portátil","silla_tipo":"Fija","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","No cuenta con mouse","Silla ergonómica en mal estado","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Mantenimiento correctivo silla","Cambio silla fija → ergonómica"]},{"nombre":"Edy Alejandra Rivera","cedula":"1090517627","cargo":"Líder de SST","estatura":1.68,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["Silla ergonómica en mal estado","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Mantenimiento correctivo silla"]},{"nombre":"Estrella Gamarra López","cedula":"1066514198","cargo":"Asistente administrativo","estatura":1.62,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","Portátil sin teclado externo","No realiza pausas activas"],"acciones":["Teclado"]},{"nombre":"Duby Deicy Serna Jaramillo","cedula":"43920403","cargo":"Auxiliar de gestión humana","estatura":1.64,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","Portátil sin teclado externo","Cables no canalizados","No realiza pausas activas"],"acciones":[]},{"nombre":"Natalia Andrea García Gómez","cedula":"1017150184","cargo":"Auxiliar de gestión humana","estatura":1.67,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","Silla ergonómica en mal estado","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Mantenimiento correctivo silla"]},{"nombre":"Jorge David Torra Sanabria","cedula":"1095951406","cargo":"Líder de flota","estatura":1.7,"exposicion":"50% oficina- 50 campo","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","No cuenta con mouse","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Teclado","Mouse"]},{"nombre":"Silvia Juliana Ramos Contreras","cedula":"1005372905","cargo":"Auxiliar SST","estatura":1.56,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["Silla ergonómica en mal estado","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Mantenimiento correctivo silla","Apoya pies (estatura <1.60m)"]},{"nombre":"Alber Mauricio Márquez Gutierrez","cedula":"1102384718","cargo":"Analista de datos","estatura":1.75,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","No cuenta con mouse","Portátil sin teclado externo","No realiza pausas activas"],"acciones":["Teclado","Mouse"]},{"nombre":"Roberto de Jesús Muñoz Arroyave","cedula":"1128477672","cargo":"Auxiliar de SST","estatura":1.7,"exposicion":"50% oficina- 50 campo","equipo":"Portátil","silla_tipo":"Fija","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","No cuenta con mouse","Silla ergonómica en mal estado","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Mantenimiento correctivo silla","Cambio silla fija → ergonómica","Teclado","Mouse"]},{"nombre":"Cristian García Gallego","cedula":"8175532","cargo":"Auxiliar de SST","estatura":1.7,"exposicion":"100% frente al computador","equipo":"Portátil","silla_tipo":"Ergonómica","hallazgos":["No cuenta con base elevadora","No cuenta con teclado","No cuenta con mouse","Portátil sin teclado externo","Iluminación y/o ventilación deficiente","No realiza pausas activas"],"acciones":["Teclado","Mouse"]}]}</script>
 <script>
 const DATA = JSON.parse(document.getElementById('dataPayload').textContent);
 
-// Palette
 const C = {
   // Main palette: Safety / Industrial (black + orange + amber)
   dark:'#0a0a0a', dark2:'#171717', dark3:'#262626',
@@ -587,10 +602,10 @@ Chart.defaults.plugins.legend.labels.boxWidth = 8;
 Chart.defaults.plugins.legend.labels.padding = 14;
 Chart.defaults.plugins.legend.labels.font = { size: 12, weight: '600' };
 
-// =========== Header meta ===========
-document.getElementById('meta-total').textContent = DATA.meta.total + ' inspecciones';
-document.getElementById('meta-tip').textContent = DATA.meta.tipologias + ' tipologías';
-document.getElementById('meta-items').textContent = DATA.meta.items_evaluados + ' ítems evaluados';
+// Meta
+document.getElementById('meta-total').textContent = DATA.meta.total + ' colaboradores';
+document.getElementById('meta-cargos').textContent = DATA.meta.cargos + ' cargos';
+document.getElementById('gen-date').textContent = new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'});
 
 const pct = DATA.kpi.cumplimiento;
 const badge = document.getElementById('kpi-badge');
@@ -598,17 +613,14 @@ badge.textContent = pct.toFixed(1) + '% Cumplimiento';
 if (pct < 70) badge.classList.add('bad');
 else if (pct < 90) badge.classList.add('warn');
 
-// Generation date
-document.getElementById('gen-date').textContent = new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'});
-
-// =========== KPI ===========
+// KPIs
 const kpiRow = document.getElementById('kpi-row');
 const kpis = [
-  { val: DATA.kpi.total, label:'Total Inspecciones', sub: DATA.meta.tipologias + ' tipologías · 9 categorías', cls:'', tab:'detalle' },
-  { val: DATA.kpi.cumplimiento.toFixed(1)+'%', label:'Cumplimiento Global', sub:'Evaluable (CUMPLE / total)', cls:'green', tab:'categorias' },
-  { val: DATA.kpi.hallazgos, label:'Hallazgos Totales', sub:'No conformidades detectadas', cls:'red', tab:'hallazgos' },
-  { val: DATA.kpi.vehiculos_con_hallazgo, label:'Vehículos con Hallazgo', sub: 'de '+DATA.kpi.total+' inspeccionados', cls:'amber', tab:'detalle' },
-  { val: DATA.kpi.items_evaluados, label:'Ítems por Vehículo', sub:'Lista de chequeo completa', cls:'navy', tab:'categorias' },
+  { val: DATA.kpi.total, label:'Total Colaboradores', sub: DATA.meta.cargos + ' cargos · CD Itagüí', cls:'', tab:'colaboradores' },
+  { val: DATA.kpi.cumplimiento.toFixed(1)+'%', label:'Cumplimiento Global', sub:'9 condiciones × 17 colab.', cls:'red', tab:'condiciones' },
+  { val: DATA.kpi.pct_pausas.toFixed(0)+'%', label:'Realiza Pausas Activas', sub:'0 de 17 colaboradores', cls:'red', tab:'condiciones' },
+  { val: DATA.kpi.colab_con_acciones, label:'Colaboradores con Acciones', sub:'de '+DATA.kpi.total+' (94%)', cls:'amber', tab:'hallazgos' },
+  { val: DATA.kpi.total_acciones, label:'Acciones Requeridas', sub:'Total de intervenciones', cls:'navy', tab:'necesidades' },
 ];
 kpiRow.innerHTML = kpis.map(k => `
   <button class="kpi ${k.cls}" data-target="${k.tab}" type="button" aria-label="Ir a ${k.label}">
@@ -627,7 +639,6 @@ kpiRow.addEventListener('click', e => {
   const tabBtn = document.querySelector(`.tab[data-tab="${target}"]`);
   if (tabBtn) {
     tabBtn.click();
-    // Smooth scroll to the active content
     setTimeout(()=>{
       const active = document.querySelector(`.tab-content[data-tab="${target}"]`);
       if (active) active.scrollIntoView({behavior:'smooth', block:'start'});
@@ -635,7 +646,7 @@ kpiRow.addEventListener('click', e => {
   }
 });
 
-// =========== Tabs ===========
+// Tabs
 document.querySelectorAll('.tab').forEach(btn=>{
   btn.addEventListener('click',()=>{
     const t = btn.dataset.tab;
@@ -644,85 +655,167 @@ document.querySelectorAll('.tab').forEach(btn=>{
   });
 });
 
-// =========== Chart: Categoria bar ===========
-const catData = DATA.cat_cumplimiento;
-new Chart(document.getElementById('chartCatBar'), {
-  type: 'bar',
-  data: {
-    labels: catData.map(c => c.categoria.length>18 ? c.categoria.substring(0,16)+'…' : c.categoria),
-    datasets: [{
-      label: '% Cumplimiento',
-      data: catData.map(c=>c.pct),
-      backgroundColor: catData.map(c => c.pct < 70 ? '#dc2626' : c.pct < 90 ? '#f59e0b' : '#0a0a0a'),
-      borderRadius: 6, borderSkipped: false,
-      maxBarThickness: 56,
-    }]
+// =========== Chart: Condiciones ===========
+const cond = DATA.condiciones;
+new Chart(document.getElementById('chartCond'),{
+  type:'bar',
+  data:{
+    labels: cond.map(c=>c.item),
+    datasets:[
+      { label:'SÍ (cumple)', data: cond.map(c=>c.si), backgroundColor: '#0a0a0a', borderRadius:5, stack:'a' },
+      { label:'NO (incumple)', data: cond.map(c=>c.no), backgroundColor: '#ea580c', borderRadius:5, stack:'a' },
+    ]
   },
-  options: {
+  options:{
+    indexAxis:'y',
     responsive:true, maintainAspectRatio:false,
     plugins:{
-      legend:{display:false},
+      legend:{position:'top', align:'end'},
       tooltip:{
         callbacks:{
-          title:(items)=>catData[items[0].dataIndex].categoria,
-          label:(item)=>{
-            const c = catData[item.dataIndex];
-            return [` ${c.pct}% cumplimiento`, ` ${c.cumple} CUMPLE / ${c.no_cumple} NO CUMPLE`];
-          }
+          afterTitle:(items)=>` ${cond[items[0].dataIndex].pct_cumple}% cumplimiento`,
         }
       }
     },
     scales:{
-      y:{ beginAtZero:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#e2e8f0'} },
-      x:{ grid:{display:false}, ticks:{font:{size:10, weight:'600'}} }
+      x:{ stacked:true, beginAtZero:true, grid:{color:'#e2e8f0'}, ticks:{font:{size:11}} },
+      y:{ stacked:true, grid:{display:false}, ticks:{font:{size:11, weight:'500'}, autoSkip:false} }
     }
   }
 });
 
-// =========== Chart: Donut ===========
-new Chart(document.getElementById('chartDonut'), {
-  type: 'doughnut',
-  data: {
-    labels: ['CUMPLE', 'NO CUMPLE', 'NO APLICA'],
-    datasets: [{
-      data: [DATA.distribucion.cumple, DATA.distribucion.no_cumple, DATA.distribucion.no_aplica],
-      backgroundColor: ['#0a0a0a', '#ea580c', '#a3a3a3'],
-      borderWidth: 0,
-      hoverOffset: 6,
+// =========== Chart: Silla type ===========
+new Chart(document.getElementById('chartSilla'),{
+  type:'doughnut',
+  data:{
+    labels: DATA.tipo_silla.map(s=>s.tipo),
+    datasets:[{
+      data: DATA.tipo_silla.map(s=>s.count),
+      backgroundColor:['#0a0a0a', '#f59e0b', '#a3a3a3'],
+      borderWidth:0,
     }]
   },
-  options: {
-    responsive:true, maintainAspectRatio:false, cutout:'68%',
+  options:{
+    responsive:true, maintainAspectRatio:false, cutout:'62%',
+    plugins:{ legend:{position:'bottom'} }
+  }
+});
+
+// =========== Chart: Exposicion ===========
+new Chart(document.getElementById('chartExp'),{
+  type:'doughnut',
+  data:{
+    labels: DATA.exposicion.map(s=>s.tipo),
+    datasets:[{
+      data: DATA.exposicion.map(s=>s.count),
+      backgroundColor:['#0a0a0a', '#f59e0b', '#a3a3a3'],
+      borderWidth:0,
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false, cutout:'62%',
+    plugins:{ legend:{position:'bottom', labels:{font:{size:10}}} }
+  }
+});
+
+// =========== Chart: Necesidades ===========
+const needs = DATA.necesidades;
+new Chart(document.getElementById('chartNeed'),{
+  type:'bar',
+  data:{
+    labels: needs.map(n=>n.item),
+    datasets:[{
+      label:'Requieren', data: needs.map(n=>n.requiere),
+      backgroundColor: needs.map(n => n.pct_requiere > 50 ? '#dc2626' : n.pct_requiere > 20 ? '#f59e0b' : '#0a0a0a'),
+      borderRadius:6, maxBarThickness: 60,
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
     plugins:{
-      legend:{position:'bottom'},
-      tooltip:{
-        callbacks:{
-          label:(item)=>{
-            const tot = item.dataset.data.reduce((a,b)=>a+b,0);
-            const p = (100*item.parsed/tot).toFixed(1);
-            return ` ${item.label}: ${item.parsed.toLocaleString('es-CO')} (${p}%)`;
-          }
-        }
-      }
+      legend:{display:false},
+      tooltip:{ callbacks:{ label:(it)=>{ const n = needs[it.dataIndex]; return ` ${n.requiere} requieren (${n.pct_requiere}%)`; }}}
+    },
+    scales:{
+      y:{ beginAtZero:true, grid:{color:'#e2e8f0'}, ticks:{stepSize:1} },
+      x:{ grid:{display:false}, ticks:{font:{size:11}} }
     }
   }
 });
 
-// =========== Chart: Top 10 hallazgos ===========
-const top10 = DATA.top_hallazgos.slice(0,10);
-new Chart(document.getElementById('chartTop10'), {
+// Chart Need2 (same data, side panel)
+new Chart(document.getElementById('chartNeed2'),{
   type:'bar',
   data:{
-    labels: top10.map(t=>{
-      const it = t.item.length>54 ? t.item.substring(0,52)+'…' : t.item;
-      return it;
-    }),
+    labels: needs.map(n=>n.item),
+    datasets:[
+      { label:'Requieren', data: needs.map(n=>n.requiere), backgroundColor: '#ea580c', borderRadius:5, stack:'a' },
+      { label:'No requieren', data: needs.map(n=>n.no_requiere), backgroundColor: '#0a0a0a', borderRadius:5, stack:'a' },
+    ]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'top', align:'end'} },
+    scales:{ x:{stacked:true, beginAtZero:true, grid:{color:'#e2e8f0'}}, y:{stacked:true, grid:{display:false}, ticks:{font:{size:11}}} }
+  }
+});
+
+// Chart Estatura
+new Chart(document.getElementById('chartEst'),{
+  type:'bar',
+  data:{
+    labels: DATA.estatura.map(e=>e.rango+' m'),
     datasets:[{
-      label:'NO CUMPLE',
-      data: top10.map(t=>t.no_cumple),
-      backgroundColor:'#ef4444',
-      borderRadius:6,
-      maxBarThickness: 22,
+      label:'Colaboradores',
+      data: DATA.estatura.map(e=>e.count),
+      backgroundColor:['#f59e0b', '#f59e0b', '#0a0a0a', '#0a0a0a'],
+      borderRadius:6, maxBarThickness:60,
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{
+      y:{ beginAtZero:true, grid:{color:'#e2e8f0'}, ticks:{stepSize:1} },
+      x:{ grid:{display:false} }
+    }
+  }
+});
+
+// =========== Condiciones table ===========
+document.querySelector('#tblCond tbody').innerHTML = cond.map((c,i)=>{
+  const cls = c.pct_cumple < 30 ? 'bad' : c.pct_cumple < 70 ? 'warn' : '';
+  return `<tr>
+    <td><span class="tag tag-slate">${i+1}</span></td>
+    <td><strong>${c.item}</strong></td>
+    <td class="num"><span class="tag tag-green">${c.si}</span></td>
+    <td class="num"><span class="tag ${c.no>0?'tag-red':'tag-slate'}">${c.no}</span></td>
+    <td><div class="bar-cell"><div class="barbg"><div class="barfill ${cls}" style="width:${c.pct_cumple}%"></div></div><div class="pcttxt">${c.pct_cumple}%</div></div></td>
+  </tr>`;
+}).join('');
+
+// =========== Necesidades table ===========
+document.querySelector('#tblNeed tbody').innerHTML = needs.map(n=>{
+  const cls = n.pct_requiere > 50 ? 'bad' : n.pct_requiere > 20 ? 'warn' : '';
+  return `<tr>
+    <td><strong>${n.item}</strong></td>
+    <td class="num"><span class="tag ${n.requiere>5?'tag-red':n.requiere>0?'tag-amber':'tag-slate'}">${n.requiere}</span></td>
+    <td class="num">${n.no_requiere}</td>
+    <td><div class="bar-cell"><div class="barbg"><div class="barfill ${cls}" style="width:${n.pct_requiere}%"></div></div><div class="pcttxt">${n.pct_requiere}%</div></div></td>
+  </tr>`;
+}).join('');
+
+// =========== Cargos ===========
+const cargo = DATA.por_cargo;
+new Chart(document.getElementById('chartCargo'),{
+  type:'bar',
+  data:{
+    labels: cargo.map(c=>c.cargo + ' (n='+c.colaboradores+')'),
+    datasets:[{
+      label:'% Cumplimiento',
+      data: cargo.map(c=>c.pct),
+      backgroundColor: cargo.map(c => c.pct < 30 ? '#dc2626' : c.pct < 60 ? '#f59e0b' : '#0a0a0a'),
+      borderRadius:6, maxBarThickness:30,
     }]
   },
   options:{
@@ -730,229 +823,195 @@ new Chart(document.getElementById('chartTop10'), {
     responsive:true, maintainAspectRatio:false,
     plugins:{
       legend:{display:false},
-      tooltip:{
-        callbacks:{
-          title:(items)=>top10[items[0].dataIndex].item,
-          label:(item)=>{
-            const t = top10[item.dataIndex];
-            return [` ${t.no_cumple} hallazgos (${t.pct}% incumplimiento)`, ` Categoría: ${t.categoria}`];
-          }
-        }
-      }
+      tooltip:{ callbacks:{ label:(it)=>{ const c = cargo[it.dataIndex]; return [` ${c.pct}% cumplimiento`, ` ${c.cumple} cumplen / ${c.no_cumple} no`]; }}}
     },
     scales:{
-      x:{ beginAtZero:true, grid:{color:'#e2e8f0'}, ticks:{font:{size:11}} },
-      y:{ grid:{display:false}, ticks:{font:{size:11, weight:'500'}} }
+      x:{ beginAtZero:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#e2e8f0'} },
+      y:{ grid:{display:false}, ticks:{font:{size:11}} }
     }
   }
 });
 
-// =========== Categorias table ===========
-function renderCategorias(){
-  const tbody = document.querySelector('#tblCategorias tbody');
-  tbody.innerHTML = catData.map((c,i)=>{
-    const cls = c.pct < 70 ? 'bad' : c.pct < 90 ? 'warn' : '';
-    return `<tr>
-      <td><span class="tag tag-slate">${i+1}</span></td>
-      <td><strong>${c.categoria}</strong></td>
-      <td>${c.items}</td>
-      <td class="num">${c.cumple.toLocaleString('es-CO')}</td>
-      <td class="num"><span class="tag ${c.no_cumple>0?'tag-red':'tag-slate'}">${c.no_cumple}</span></td>
-      <td class="num">${c.total.toLocaleString('es-CO')}</td>
-      <td><div class="bar-cell"><div class="barbg"><div class="barfill ${cls}" style="width:${c.pct}%"></div></div><div class="pcttxt">${c.pct}%</div></div></td>
-    </tr>`;
-  }).join('');
-}
-renderCategorias();
-
-// =========== Tipologia ===========
-const tipData = DATA.tipologia;
-new Chart(document.getElementById('chartTipBar'),{
-  type:'bar',
-  data:{
-    labels: tipData.map(t=>t.tipologia),
-    datasets:[{
-      label:'% Cumplimiento',
-      data: tipData.map(t=>t.pct),
-      backgroundColor: tipData.map(t => t.pct < 90 ? '#f59e0b' : '#0a0a0a'),
-      borderRadius:6, maxBarThickness:54,
-    }]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{
-      legend:{display:false},
-      tooltip:{callbacks:{
-        label:(it)=>{
-          const t = tipData[it.dataIndex];
-          return [` ${t.pct}% cumplimiento`, ` ${t.vehiculos} vehículos`, ` ${t.no_cumple} hallazgos`];
-        }
-      }}
-    },
-    scales:{
-      y:{ beginAtZero:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#e2e8f0'} },
-      x:{ grid:{display:false} }
-    }
-  }
-});
-
-new Chart(document.getElementById('chartTipDonut'),{
-  type:'doughnut',
-  data:{
-    labels: tipData.map(t=>t.tipologia),
-    datasets:[{
-      data: tipData.map(t=>t.vehiculos),
-      backgroundColor:['#0a0a0a','#f59e0b','#525252','#ea580c','#a3a3a3','#fb923c','#262626','#fed7aa'],
-      borderWidth:0,
-    }]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false, cutout:'58%',
-    plugins:{ legend:{position:'right', labels:{font:{size:11}}} }
-  }
-});
-
-const tblTip = document.querySelector('#tblTip tbody');
-tblTip.innerHTML = tipData.map(t=>{
-  const cls = t.pct < 90 ? 'warn' : '';
+document.querySelector('#tblCargo tbody').innerHTML = cargo.map(c=>{
+  const cls = c.pct < 30 ? 'bad' : c.pct < 60 ? 'warn' : '';
   return `<tr>
-    <td><strong>${t.tipologia}</strong></td>
-    <td class="num">${t.vehiculos}</td>
-    <td class="num">${t.cumple.toLocaleString('es-CO')}</td>
-    <td class="num"><span class="tag ${t.no_cumple>0?'tag-red':'tag-slate'}">${t.no_cumple}</span></td>
-    <td><div class="bar-cell"><div class="barbg"><div class="barfill ${cls}" style="width:${t.pct}%"></div></div><div class="pcttxt">${t.pct}%</div></div></td>
+    <td><strong>${c.cargo}</strong></td>
+    <td class="num">${c.colaboradores}</td>
+    <td class="num">${c.cumple}</td>
+    <td class="num"><span class="tag tag-red">${c.no_cumple}</span></td>
+    <td><div class="bar-cell"><div class="barbg"><div class="barfill ${cls}" style="width:${c.pct}%"></div></div><div class="pcttxt">${c.pct}%</div></div></td>
   </tr>`;
 }).join('');
 
-// =========== Hallazgos table ===========
-document.getElementById('hallazgos-count').textContent = DATA.hallazgos_detalle.length + ' hallazgos';
-const cats = [...new Set(DATA.hallazgos_detalle.map(h=>h.categoria))];
-document.getElementById('filter-categoria').innerHTML = '<option value="">Todas las categorías</option>' + cats.map(c=>`<option>${c}</option>`).join('');
-const tipsH = [...new Set(DATA.hallazgos_detalle.map(h=>h.tipologia))];
-document.getElementById('filter-tip-h').innerHTML = '<option value="">Todas las tipologías</option>' + tipsH.map(t=>`<option>${t}</option>`).join('');
-const tipFilter = document.getElementById('filter-tipologia');
-tipFilter.innerHTML = '<option value="">Todas</option>' + tipsH.map(t=>`<option>${t}</option>`).join('');
+// Filter cargo
+const cargoFilter = document.getElementById('filter-cargo');
+cargoFilter.innerHTML = '<option value="">Todos</option>' + cargo.map(c=>`<option>${c.cargo}</option>`).join('');
+
+// =========== Colaboradores ===========
+// Mapa de hallazgos: condición afirmativa → frase negativa (hallazgo real)
+const NEG_MAP = {
+  'Cuenta con base elevadora': 'No cuenta con base elevadora',
+  'Cuenta con teclado': 'No cuenta con teclado',
+  'Cuenta con mouse': 'No cuenta con mouse',
+  'Silla ergonómica en buen estado': 'Silla ergonómica en mal estado',
+  'Cuenta con teclado externo (portátil)': 'Portátil sin teclado externo',
+  'Buena iluminación y ventilación': 'Iluminación o ventilación deficiente',
+  'Buen orden y aseo': 'Sin orden y aseo en el puesto',
+  'Cables canalizados': 'Cables sin canalizar',
+  'Realiza pausas activas': 'No realiza pausas activas',
+};
+function toNeg(label){ return NEG_MAP[label] || label; }
+
+function renderColab(){
+  const q = document.getElementById('search-colab').value.toLowerCase().trim();
+  const fc = cargoFilter.value;
+  const filtered = DATA.colaboradores.filter(c=>{
+    const hallazgosNeg = c.hallazgos.map(toNeg);
+    if (fc && c.cargo !== fc) return false;
+    if (q) {
+      const haystack = (c.nombre + ' ' + c.cargo + ' ' + hallazgosNeg.join(' ') + ' ' + c.acciones.join(' ')).toLowerCase();
+      if (!haystack.includes(q)) return false;
+    }
+    return true;
+  });
+  document.getElementById('colab-shown').textContent = `Mostrando ${filtered.length} de ${DATA.colaboradores.length}`;
+  document.getElementById('colab-count').textContent = `${DATA.colaboradores.length} colaboradores`;
+  document.querySelector('#tblColab tbody').innerHTML = filtered.map(c=>{
+    const hallazgosNeg = c.hallazgos.map(toNeg);
+    return `
+    <tr>
+      <td><strong>${c.nombre}</strong></td>
+      <td><span class="tag tag-blue">${c.cargo}</span></td>
+      <td class="mono tabular">${c.estatura ? c.estatura.toFixed(2)+' m' : '—'}</td>
+      <td>${c.silla_tipo==='Ergonómica' ? '<span class="tag tag-green">Ergonómica</span>' : c.silla_tipo==='Fija' ? '<span class="tag tag-amber">Fija</span>' : '<span class="tag tag-slate">'+c.silla_tipo+'</span>'}</td>
+      <td>${hallazgosNeg.length === 0 ? '<span class="tag tag-green">Sin hallazgos</span>' : '<div class="tags-line">'+hallazgosNeg.map(h=>`<span class="tag tag-red">${h}</span>`).join('')+'</div>'}</td>
+      <td>${c.acciones.length === 0 ? '<span class="tag tag-green">Sin acciones</span>' : '<div class="tags-line">'+c.acciones.map(a=>`<span class="tag tag-amber">${a}</span>`).join('')+'</div>'}</td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">Sin resultados</td></tr>';
+}
+document.getElementById('search-colab').addEventListener('input', renderColab);
+cargoFilter.addEventListener('change', renderColab);
+renderColab();
+
+// =========== Hallazgos ===========
+// Categorización por dominio
+const CATEGORIA_MAP = {
+  'No cuenta con base elevadora':       'Equipo de cómputo',
+  'No cuenta con teclado':              'Equipo de cómputo',
+  'No cuenta con mouse':                'Equipo de cómputo',
+  'Portátil sin teclado externo':       'Equipo de cómputo',
+  'Silla ergonómica en mal estado':     'Mobiliario',
+  'Iluminación o ventilación deficiente':'Ambiente',
+  'Sin orden y aseo en el puesto':      'Ambiente',
+  'Cables sin canalizar':               'Ambiente',
+  'No realiza pausas activas':          'Hábitos',
+  // Acciones
+  'Mantenimiento correctivo silla':     'Mobiliario',
+  'Cambio silla fija → ergonómica':     'Mobiliario',
+  'Apoya pies (estatura <1.60m)':       'Mobiliario',
+  'Teclado':                            'Equipo de cómputo',
+  'Mouse':                              'Equipo de cómputo',
+};
+
+// Construir lista plana de hallazgos
+const HALLAZGOS = [];
+DATA.colaboradores.forEach(c=>{
+  c.hallazgos.forEach(h=>{
+    const neg = toNeg(h);
+    HALLAZGOS.push({
+      nombre: c.nombre,
+      cargo: c.cargo,
+      cedula: c.cedula,
+      categoria: CATEGORIA_MAP[neg] || 'Otro',
+      tipo: 'No conformidad',
+      hallazgo: neg,
+    });
+  });
+  c.acciones.forEach(a=>{
+    HALLAZGOS.push({
+      nombre: c.nombre,
+      cargo: c.cargo,
+      cedula: c.cedula,
+      categoria: CATEGORIA_MAP[a] || 'Otro',
+      tipo: 'Acción requerida',
+      hallazgo: a,
+    });
+  });
+});
+
+// Populate cargo filter
+const cargosUniqueH = [...new Set(HALLAZGOS.map(h=>h.cargo))].sort();
+document.getElementById('filter-hcargo').innerHTML += cargosUniqueH.map(c=>`<option>${c}</option>`).join('');
+
+// Summary cards
+function renderSummary(){
+  const noConf = HALLAZGOS.filter(h=>h.tipo==='No conformidad').length;
+  const acc = HALLAZGOS.filter(h=>h.tipo==='Acción requerida').length;
+  const colCount = new Set(HALLAZGOS.map(h=>h.nombre)).size;
+  document.getElementById('hallazgos-summary').innerHTML = `
+    <div class="kpi red" style="cursor:default;border-left-color:var(--red)">
+      <div class="kpi-val tabular" style="color:var(--red)">${noConf}</div>
+      <div class="kpi-label">No conformidades</div>
+      <div class="kpi-sub">Condiciones que no cumplen</div>
+    </div>
+    <div class="kpi amber" style="cursor:default;border-left-color:var(--amber)">
+      <div class="kpi-val tabular" style="color:var(--amber-dk)">${acc}</div>
+      <div class="kpi-label">Acciones requeridas</div>
+      <div class="kpi-sub">Intervenciones a ejecutar</div>
+    </div>
+    <div class="kpi dark" style="cursor:default;border-left-color:var(--dark-800)">
+      <div class="kpi-val tabular">${colCount}</div>
+      <div class="kpi-label">Colaboradores impactados</div>
+      <div class="kpi-sub">de ${DATA.colaboradores.length} evaluados</div>
+    </div>
+  `;
+  // Strip the cursor pointer hover affordance on these summary cards
+  document.querySelectorAll('#hallazgos-summary .kpi').forEach(k=>{
+    k.style.cursor='default';
+    k.classList.add('no-arrow');
+  });
+}
+renderSummary();
+document.getElementById('hallazgos-count').textContent = `${HALLAZGOS.length} hallazgos`;
+
+const catColor = {
+  'Mobiliario':'tag-orange',
+  'Equipo de cómputo':'tag-blue',
+  'Ambiente':'tag-amber',
+  'Hábitos':'tag-red',
+  'Otro':'tag-slate',
+};
 
 function renderHallazgos(){
   const q = document.getElementById('search-hallazgos').value.toLowerCase().trim();
-  const fc = document.getElementById('filter-categoria').value;
-  const ft = document.getElementById('filter-tip-h').value;
-  const filtered = DATA.hallazgos_detalle.filter(h=>{
+  const fc = document.getElementById('filter-hcategoria').value;
+  const ft = document.getElementById('filter-htipo').value;
+  const fcg = document.getElementById('filter-hcargo').value;
+  const filtered = HALLAZGOS.filter(h=>{
     if (fc && h.categoria !== fc) return false;
-    if (ft && h.tipologia !== ft) return false;
-    if (q && !(h.placa.toLowerCase().includes(q) || h.categoria.toLowerCase().includes(q) || h.item.toLowerCase().includes(q) || h.inspector.toLowerCase().includes(q))) return false;
+    if (ft && h.tipo !== ft) return false;
+    if (fcg && h.cargo !== fcg) return false;
+    if (q) {
+      const hay = (h.nombre+' '+h.cargo+' '+h.hallazgo+' '+h.categoria).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
     return true;
   });
-  document.getElementById('hallazgos-shown').textContent = `Mostrando ${filtered.length} de ${DATA.hallazgos_detalle.length}`;
+  document.getElementById('hallazgos-shown').textContent = `Mostrando ${filtered.length} de ${HALLAZGOS.length}`;
   document.querySelector('#tblHallazgos tbody').innerHTML = filtered.map(h=>`
     <tr>
-      <td class="mono" style="font-size:11.5px">${h.fecha}</td>
-      <td><strong>${h.placa}</strong></td>
-      <td><span class="tag tag-blue">${h.tipologia}</span></td>
-      <td>${h.categoria}</td>
-      <td>${h.item}</td>
-      <td style="color:var(--muted);font-size:12px">${h.inspector}</td>
-    </tr>`).join('') || '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">Sin resultados</td></tr>';
+      <td><strong>${h.nombre}</strong><div style="font-size:11px;color:var(--muted);font-weight:500" class="mono">${h.cedula}</div></td>
+      <td><span class="tag tag-blue">${h.cargo}</span></td>
+      <td><span class="tag ${catColor[h.categoria]||'tag-slate'}">${h.categoria}</span></td>
+      <td>${h.tipo==='No conformidad' ? '<span class="tag tag-red">No conformidad</span>' : '<span class="tag tag-amber">Acción requerida</span>'}</td>
+      <td><strong>${h.hallazgo}</strong></td>
+    </tr>`).join('') || '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">Sin resultados</td></tr>';
 }
-['search-hallazgos','filter-categoria','filter-tip-h'].forEach(id=>{
+['search-hallazgos','filter-hcategoria','filter-htipo','filter-hcargo'].forEach(id=>{
   document.getElementById(id).addEventListener('input', renderHallazgos);
+  document.getElementById(id).addEventListener('change', renderHallazgos);
 });
 renderHallazgos();
-
-// =========== Inspectores ===========
-const insp = DATA.inspectores;
-new Chart(document.getElementById('chartInsp'),{
-  type:'bar',
-  data:{
-    labels: insp.map(i=>i.nombre),
-    datasets:[{
-      label:'Inspecciones',
-      data: insp.map(i=>i.inspecciones),
-      backgroundColor: '#f59e0b',
-      borderRadius:6, maxBarThickness: 24,
-    }]
-  },
-  options:{
-    indexAxis:'y', responsive:true, maintainAspectRatio:false,
-    plugins:{ legend:{display:false} },
-    scales:{ x:{beginAtZero:true, grid:{color:'#e2e8f0'}}, y:{grid:{display:false}, ticks:{font:{size:10}}} }
-  }
-});
-new Chart(document.getElementById('chartInspPct'),{
-  type:'bar',
-  data:{
-    labels: insp.map(i=>i.nombre),
-    datasets:[{
-      label:'% Cumplimiento',
-      data: insp.map(i=>i.pct),
-      backgroundColor: insp.map(i=>i.pct<80? '#dc2626' : i.pct<95? '#f59e0b' : '#0a0a0a'),
-      borderRadius:6, maxBarThickness: 24,
-    }]
-  },
-  options:{
-    indexAxis:'y', responsive:true, maintainAspectRatio:false,
-    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:(it)=>{ const i = insp[it.dataIndex]; return [` ${i.pct}% cumplimiento`, ` ${i.hallazgos} hallazgos detectados`]; }}} },
-    scales:{ x:{beginAtZero:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#e2e8f0'}}, y:{grid:{display:false}, ticks:{font:{size:10}}} }
-  }
-});
-
-document.querySelector('#tblInsp tbody').innerHTML = insp.map(i=>{
-  const cls = i.pct < 80 ? 'bad' : i.pct < 95 ? 'warn' : '';
-  return `<tr>
-    <td><strong>${i.nombre}</strong></td>
-    <td class="num">${i.inspecciones}</td>
-    <td class="num"><span class="tag ${i.hallazgos>0?'tag-red':'tag-green'}">${i.hallazgos}</span></td>
-    <td><div class="bar-cell"><div class="barbg"><div class="barfill ${cls}" style="width:${i.pct}%"></div></div><div class="pcttxt">${i.pct}%</div></div></td>
-  </tr>`;
-}).join('');
-
-// =========== Detalle vehiculos ===========
-// Build per-placa summary from hallazgos
-const vehMap = {};
-// Init from hallazgos
-DATA.hallazgos_detalle.forEach(h=>{
-  if (!vehMap[h.placa]) vehMap[h.placa] = {placa:h.placa, tipologia:h.tipologia, fecha:h.fecha, inspector:h.inspector, hallazgos:0};
-  vehMap[h.placa].hallazgos++;
-});
-// Now we need placas without hallazgos too. We compute count_with_hallazgo and total
-const totalVeh = DATA.kpi.total;
-const conHallazgo = DATA.kpi.vehiculos_con_hallazgo;
-// We don't have raw list of all placas. Build from hallazgos + add synthetic for "sin hallazgos"
-// For accuracy, we'll show the placas with hallazgos and a summary of "vehículos sin hallazgo"
-
-let vehList = Object.values(vehMap).sort((a,b)=>b.hallazgos-a.hallazgos);
-const sinH = totalVeh - vehList.length;
-
-function renderVeh(){
-  const q = document.getElementById('search-veh').value.toLowerCase().trim();
-  const f = vehList.filter(v=>!q || v.placa.toLowerCase().includes(q) || (v.tipologia||'').toLowerCase().includes(q));
-  document.getElementById('veh-shown').textContent = `${f.length} placas con hallazgos · ${sinH} placas sin hallazgos`;
-  let html = f.map(v=>`
-    <tr>
-      <td><strong class="mono">${v.placa}</strong></td>
-      <td><span class="tag tag-blue">${v.tipologia}</span></td>
-      <td class="mono" style="font-size:11.5px">${v.fecha}</td>
-      <td style="color:var(--muted);font-size:12px">${v.inspector}</td>
-      <td class="num"><span class="tag ${v.hallazgos>5?'tag-red':v.hallazgos>2?'tag-amber':'tag-amber'}">${v.hallazgos}</span></td>
-      <td>${v.hallazgos===0 ? '<span class="tag tag-green">Conforme</span>' : v.hallazgos>5 ? '<span class="tag tag-red">Crítico</span>' : '<span class="tag tag-amber">Atención</span>'}</td>
-    </tr>`).join('');
-  if (sinH > 0 && !q) {
-    html += `<tr><td colspan="6" style="background:#ecfdf5;text-align:center;font-weight:600;color:#065f46">+ ${sinH} vehículos adicionales sin hallazgos (conformes)</td></tr>`;
-  }
-  document.querySelector('#tblVeh tbody').innerHTML = html || '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">Sin resultados</td></tr>';
-}
-document.getElementById('search-veh').addEventListener('input', renderVeh);
-renderVeh();
-
-// =========== Global filter por tipología (affects KPI summary mostly visually) ===========
-tipFilter.addEventListener('change', e=>{
-  document.getElementById('filter-tip-h').value = e.target.value;
-  renderHallazgos();
-  // Switch to hallazgos tab if filter applied
-  if (e.target.value) {
-    document.querySelector('.tab[data-tab="hallazgos"]').click();
-  }
-});
 </script>
 </body>
 </html>
